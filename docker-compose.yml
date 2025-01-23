@@ -1,0 +1,16 @@
+services:
+  service-eureka:
+    build:
+      context: ./service-eureka
+    ports:
+      - "8761:8761"
+
+  service-api:
+    build:
+      context: ./service-api
+    ports:
+      - "8080:8080"
+    depends_on:
+      - service-eureka
+    environment:
+      EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE: http://service-eureka:8761/eureka/
